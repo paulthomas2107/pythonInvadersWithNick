@@ -21,6 +21,7 @@ class Game:
         self.alien_lasers_group = pygame.sprite.Group()
         self.mystery_ship_group = pygame.sprite.GroupSingle()
         self.lives = 3
+        self.run = True
 
     def create_obstacles(self):
         obstacle_width = len(grid[0]) * 3
@@ -102,4 +103,14 @@ class Game:
                     self.game_over()
 
     def game_over(self):
-        print("Game over")
+        self.run = False
+
+    def reset(self):
+        self.run = True
+        self.lives = 3
+        self.spaceship_group.sprite.reset()
+        self.aliens_group.empty()
+        self.alien_lasers_group.empty()
+        self.create_aliens()
+        self.mystery_ship_group.empty()
+        self.obstacles = self.create_obstacles()
