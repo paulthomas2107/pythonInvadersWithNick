@@ -24,6 +24,7 @@ class Game:
         self.lives = 3
         self.run = True
         self.score = 0
+        self.highscore = 0
 
     def create_obstacles(self):
         obstacle_width = len(grid[0]) * 3
@@ -84,10 +85,12 @@ class Game:
                 if aliens_hit:
                     for alien in aliens_hit:
                         self.score += alien.type_suffix * 100
+                        self.check_for_highscore()
                         laser_sprite.kill()
 
                 if pygame.sprite.spritecollide(laser_sprite, self.mystery_ship_group, True):
                     self.score += 500
+                    self.check_for_highscore()
                     laser_sprite.kill()
 
                 for obstacle in self.obstacles:
@@ -124,3 +127,7 @@ class Game:
         self.mystery_ship_group.empty()
         self.obstacles = self.create_obstacles()
         self.score = 0
+
+    def check_for_highscore(self):
+        if self.score > self.highscore:
+            self.highscore = self.score
