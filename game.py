@@ -25,6 +25,7 @@ class Game:
         self.run = True
         self.score = 0
         self.highscore = 0
+        self.load_high_score()
 
     def create_obstacles(self):
         obstacle_width = len(grid[0]) * 3
@@ -131,3 +132,12 @@ class Game:
     def check_for_highscore(self):
         if self.score > self.highscore:
             self.highscore = self.score
+            with open("highscore.txt", "w") as file:
+                file.write(str(self.highscore))
+
+    def load_high_score(self):
+        try:
+            with open("highscore.txt", "r") as file:
+                self.highscore = int(file.read())
+        except FileNotFoundError:
+            self.highscore = 0
