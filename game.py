@@ -14,6 +14,7 @@ class Game:
         self.obstacles = self.create_obstacles()
         self.aliens_group = pygame.sprite.Group()
         self.create_aliens()
+        self.alien_direction = 1
 
     def create_obstacles(self):
         obstacle_width = len(grid[0]) * 3
@@ -28,7 +29,24 @@ class Game:
     def create_aliens(self):
         for row in range(5):
             for column in range(11):
-                x = column * 55
-                y = row * 55
-                alien = Alien(1, x, y)
+                x = 75 + column * 55
+                y = 110 + row * 55
+                if row == 1:
+                    alien_type = 3
+                elif row in (1, 2):
+                    alien_type = 2
+                else:
+                    alien_type = 1
+
+                alien = Alien(alien_type, x, y)
                 self.aliens_group.add(alien)
+
+    def move_aliens(self):
+        self.aliens_group.update(self.alien_direction)
+        alien_sprites = self.aliens_group.sprites()
+        for alien in alien_sprites:
+            if alien.rect.right >= self.screen_width:
+                self.alien_direction = -1
+            elif alien.rect.left <= 0:
+                self.alien_direction = 1
+

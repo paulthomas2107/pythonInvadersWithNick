@@ -24,6 +24,7 @@ while True:
 
     # Updating
     game.spaceship_group.update()
+    game.move_aliens()
 
     # Drawing
     screen.fill(GREY)
