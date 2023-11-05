@@ -12,6 +12,10 @@ OFFSET = 50
 GREY = (29, 29, 27)
 YELLOW = (243, 216, 63)
 
+font = pygame.font.Font("Font/monogram.ttf", 40)
+level_surface = font.render('Level 01', False, YELLOW)
+game_over_surface = font.render("GAME OVER", False, YELLOW)
+
 screen = pygame.display.set_mode((SCREEN_WIDTH + OFFSET, SCREEN_HEIGHT + (2 * OFFSET)))
 pygame.display.set_caption("Python Space Invaders")
 
@@ -49,6 +53,8 @@ while True:
 
     # Drawing
     screen.fill(GREY)
+
+    # UI
     pygame.draw.rect(screen,
                      YELLOW,
                      (10, 10, 780, 780),
@@ -61,6 +67,17 @@ while True:
     pygame.draw.line(screen,
                      YELLOW,
                      (25, 730), (775, 730), 3)
+
+    if game.run:
+        screen.blit(level_surface, (570, 740, 50, 50))
+    else:
+        screen.blit(game_over_surface, (570, 740, 50, 50))
+
+    x = 50
+    for life in range(game.lives):
+        screen.blit(game.spaceship_group.sprite.image, (x, 745))
+        x += 50
+
     game.spaceship_group.draw(screen)
     game.spaceship_group.sprite.lasers_group.draw(screen)
     for obstacle in game.obstacles:
