@@ -1,6 +1,7 @@
 import pygame
 import sys
 from spaceship import Spaceship
+from obstacle import Obstacle
 
 pygame.init()
 
@@ -18,6 +19,7 @@ spaceship = Spaceship(SCREEN_WIDTH, SCREEN_HEIGHT)
 spaceship_group = pygame.sprite.GroupSingle()
 spaceship_group.add(spaceship)
 
+obstacle = Obstacle()
 
 while True:
     for event in pygame.event.get():
@@ -32,6 +34,7 @@ while True:
     screen.fill(GREY)
     spaceship_group.draw(screen)
     spaceship_group.sprite.lasers_group.draw(screen)
+    obstacle.blocks_group.draw(screen)
 
     pygame.display.update()
     clock.tick(60)
