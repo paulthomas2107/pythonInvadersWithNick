@@ -1,6 +1,7 @@
 import pygame
 import random
 
+
 class Alien(pygame.sprite.Sprite):
     def __init__(self, type_suffix, x, y):
         super().__init__()
