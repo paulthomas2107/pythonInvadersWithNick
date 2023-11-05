@@ -17,7 +17,7 @@ pygame.display.set_caption("Python Space Invaders")
 
 clock = pygame.time.Clock()
 
-game = Game(SCREEN_WIDTH, SCREEN_HEIGHT)
+game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, OFFSET)
 
 SHOOT_LASER = pygame.USEREVENT
 pygame.time.set_timer(SHOOT_LASER, 300)
