@@ -16,15 +16,21 @@ clock = pygame.time.Clock()
 
 game = Game(SCREEN_WIDTH, SCREEN_HEIGHT)
 
+SHOOT_LASER = pygame.USEREVENT
+pygame.time.set_timer(SHOOT_LASER, 300)
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == SHOOT_LASER:
+            game.alien_shoot_laser()
 
     # Updating
     game.spaceship_group.update()
     game.move_aliens()
+    game.alien_lasers_group.update()
 
     # Drawing
     screen.fill(GREY)
@@ -33,6 +39,7 @@ while True:
     for obstacle in game.obstacles:
         obstacle.blocks_group.draw(screen)
     game.aliens_group.draw(screen)
+    game.alien_lasers_group.draw(screen)
 
     pygame.display.update()
     clock.tick(60)
